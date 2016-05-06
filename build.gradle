@@ -26,5 +26,4 @@ dependencies {
     compile 'org.slf4j:slf4j-simple:1.6.1'
 }
 
-defaultTasks = ['clean', 'build', 'shadowJar']
-task stage(dependsOn: ['clean', 'installApp'])
+defaultTasks "clean", "build", "shadowJar"
