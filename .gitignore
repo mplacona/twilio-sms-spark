@@ -66,6 +66,12 @@ target/
 unit-tests.log
 work/
 
+# Gradle generate files #
+#########################
+.gradle
+build
+bin
+
 # For Hive
 TempStatsStore/
 metastore/

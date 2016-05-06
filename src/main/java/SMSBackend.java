@@ -14,8 +14,8 @@ public class SMSBackend {
         TwilioRestClient client = new TwilioRestClient("YOUR_TWILIO_ACCOUNT_SID", "YOUR_TWILIO_AUTH_TOKEN");
 
         post("/sms", (req, res) -> {
-            String body = req.queryParams("Body");
-            String to = req.queryParams("To");
+            String body = req.queryParams("To");
+            String to = req.queryParams("From");
             String from = "YOUR_TWILIO_PHONE_NUMBER";
 
             Map<String, String> callParams = new HashMap<>();
