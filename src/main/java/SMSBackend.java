@@ -11,12 +11,12 @@ public class SMSBackend {
     public static void main(String[] args) {
         get("/", (req, res) -> "Hello, World");
 
-        TwilioRestClient client = new TwilioRestClient("YOUR_TWILIO_ACCOUNT_SID", "YOUR_TWILIO_AUTH_TOKEN");
+        TwilioRestClient client = new TwilioRestClient(System.getenv("TWILIO_ACCOUNT_SID"), System.getenv("TWILIO_AUTH_TOKEN"));
 
         post("/sms", (req, res) -> {
-            String body = req.queryParams("To");
-            String to = req.queryParams("From");
-            String from = "YOUR_TWILIO_PHONE_NUMBER";
+            String body = req.queryParams("Body");
+            String to = req.queryParams("To");
+            String from = System.getenv("TWILIO_NUMBER");
 
             Map<String, String> callParams = new HashMap<>();
             callParams.put("To", to);
