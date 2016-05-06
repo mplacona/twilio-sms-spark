@@ -1,14 +1,28 @@
 import com.twilio.sdk.TwilioRestClient;
 import com.twilio.sdk.resource.instance.Sms;
+import spark.Spark;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.setPort;
 
 public class SMSBackend {
     public static void main(String[] args) {
+
+        //Heroku assigns different port each time, hence reading it from process.
+        ProcessBuilder process = new ProcessBuilder();
+        Integer port;
+        if (process.environment().get("PORT") != null) {
+            port = Integer.parseInt(process.environment().get("PORT"));
+        } else {
+            port = 4567;
+        }
+        Spark.port(port);
+
+
         get("/", (req, res) -> "Hello, World");
 
         TwilioRestClient client = new TwilioRestClient(System.getenv("TWILIO_ACCOUNT_SID"), System.getenv("TWILIO_AUTH_TOKEN"));
@@ -26,5 +40,6 @@ public class SMSBackend {
 
             return message.getSid();
         });
+
     }
 }
