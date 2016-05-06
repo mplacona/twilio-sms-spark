@@ -1,0 +1,27 @@
+group 'uk.co.placona'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories { jcenter() }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+sourceCompatibility = 1.8
+mainClassName = 'SMSBackend'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile 'com.sparkjava:spark-core:2.5'
+    compile 'com.twilio.sdk:twilio-java-sdk:5.10.0'
+    compile 'org.slf4j:slf4j-simple:1.6.1'
+}
