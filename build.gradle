@@ -25,3 +25,6 @@ dependencies {
     compile 'com.twilio.sdk:twilio-java-sdk:5.10.0'
     compile 'org.slf4j:slf4j-simple:1.6.1'
 }
+
+defaultTasks = ['clean']
+task stage(dependsOn: ['clean', 'installApp'])
