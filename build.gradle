@@ -22,8 +22,8 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'com.sparkjava:spark-core:2.6.0'
-    compile 'com.twilio.sdk:twilio-java-sdk:5.10.0'
     compile 'org.slf4j:slf4j-simple:1.6.1'
+    compile group: 'com.twilio.sdk', name: 'twilio', version: '7.9.0'
 }
 
 task stage {

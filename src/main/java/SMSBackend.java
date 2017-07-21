@@ -1,13 +1,11 @@
-import com.twilio.sdk.TwilioRestClient;
-import com.twilio.sdk.resource.instance.Sms;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.rest.api.v2010.account.MessageCreator;
+import com.twilio.type.PhoneNumber;
 import spark.Spark;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
-import static spark.Spark.setPort;
 
 public class SMSBackend {
     public static void main(String[] args) {
@@ -25,18 +23,17 @@ public class SMSBackend {
 
         get("/", (req, res) -> "Hello, World");
 
-        TwilioRestClient client = new TwilioRestClient(System.getenv("TWILIO_ACCOUNT_SID"), System.getenv("TWILIO_AUTH_TOKEN"));
+        TwilioRestClient client = new TwilioRestClient.Builder(System.getenv("TWILIO_ACCOUNT_SID"), System.getenv("TWILIO_AUTH_TOKEN")).build();
 
         post("/sms", (req, res) -> {
             String body = req.queryParams("Body");
             String to = req.queryParams("To");
             String from = System.getenv("TWILIO_NUMBER");
 
-            Map<String, String> callParams = new HashMap<>();
-            callParams.put("To", to);
-            callParams.put("From", from);
-            callParams.put("Body", body);
-            Sms message = client.getAccount().getSmsFactory().create(callParams);
+            Message message = new MessageCreator(
+                    new PhoneNumber(to),
+                    new PhoneNumber(from),
+                    body).create(client);
 
             return message.getSid();
         });
